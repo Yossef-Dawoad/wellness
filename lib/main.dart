@@ -4,7 +4,7 @@ import 'package:wellness/features/user_questionnaire/presentation/weight_screen.
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // test code
+
   runApp(MyApp());
 }
 
