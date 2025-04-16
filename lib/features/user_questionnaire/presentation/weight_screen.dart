@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/animated_scale_widget.dart';
+import 'package:wellness/features/user_questionnaire/presentation/exercise_type_selector.dart';
 
 class WeightScalePage extends StatefulWidget {
   const WeightScalePage({super.key});
@@ -106,6 +107,9 @@ class _WeightScalePageState extends State<WeightScalePage> {
                 ElevatedButton(
                   onPressed: () {
                     // Handle next navigation
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BodyPartsPage()),);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
