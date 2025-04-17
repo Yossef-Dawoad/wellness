@@ -1,40 +1,38 @@
-
 import 'package:flutter/material.dart';
 
+import '../data/exercise_type_model.dart';
 
-import '../data/body_part.dart';
-
-class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({super.key});
+class FavoritesMealsSelectorPage extends StatefulWidget {
+  const FavoritesMealsSelectorPage({super.key});
 
   @override
-  State<FavoritesPage> createState() => _FavoritesPageState();
+  State<FavoritesMealsSelectorPage> createState() => _FavoritesMealsSelectorPageState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage> {
-  final List<BodyPart> favorites = [
-    BodyPart(partName: 'Protein', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Carbs', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Fish', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Dairy', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Fruits', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Vegetable', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Organic', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Caffe', boxColor: Colors.grey[300]),
-    BodyPart(partName: 'Vegan', boxColor: Colors.grey[300]),
+class _FavoritesMealsSelectorPageState extends State<FavoritesMealsSelectorPage> {
+  final List<ExerciseType> favorites = [
+    ExerciseType(name: 'Protein', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Carbs', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Fish', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Dairy', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Fruits', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Vegetable', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Organic', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Caffe', boxColor: Colors.grey[300]),
+    ExerciseType(name: 'Vegan', boxColor: Colors.grey[300]),
   ];
 
   final List<String> selectedParts = [];
 
-  void selection(BodyPart part) {
+  void selection(ExerciseType part) {
     setState(() {
       part.isSelected = !part.isSelected;
       if (part.isSelected) {
         part.boxColor = Colors.green;
-        selectedParts.add(part.partName);
+        selectedParts.add(part.name);
       } else {
         part.boxColor = Colors.grey[300]!;
-        selectedParts.remove(part.partName);
+        selectedParts.remove(part.name);
       }
     });
   }
@@ -73,9 +71,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       return TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: part.boxColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
                         ),
                         onPressed: () => selection(part),
                         child: Column(
@@ -84,7 +80,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             Icon(Icons.category, size: 30.0),
                             const SizedBox(height: 8.0),
                             Text(
-                              part.partName,
+                              part.name,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16.0,
@@ -114,15 +110,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                           child: const Text(
                             'Back',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.black,
-                            ),
+                            style: TextStyle(fontSize: 15.0, color: Colors.black),
                           ),
                         ),
                       ),
@@ -132,18 +123,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       child: SizedBox(
                         height: 70.0,
                         child: ElevatedButton(
-                          onPressed: selectedParts.isNotEmpty ? () {
-                            // Next action here
-                          } : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey,
-                          ),
+                          onPressed:
+                              selectedParts.isNotEmpty
+                                  ? () {
+                                    // Next action here
+                                  }
+                                  : null,
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                           child: const Text(
                             'Next',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.black,
-                            ),
+                            style: TextStyle(fontSize: 15.0, color: Colors.black),
                           ),
                         ),
                       ),
