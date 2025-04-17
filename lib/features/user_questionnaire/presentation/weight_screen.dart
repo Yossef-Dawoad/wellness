@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/animated_scale_widget.dart';
-import 'package:wellness/features/user_questionnaire/presentation/exercise_type_selector.dart';
 
 class WeightScalePage extends StatefulWidget {
   const WeightScalePage({super.key});
@@ -50,207 +49,102 @@ class _WeightScalePageState extends State<WeightScalePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: ValueListenableBuilder<int>(
-          valueListenable: scaleValueNotifier,
-          builder: (context, value, child) {
-            return Text('Scale Value: $value');
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-        child: Column(
-          children: [
-            Text(
-              'How much \nyour weight?',
-              style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w900, color: Colors.black),
-            ),
-            SizedBox(height: 32.0),
-            UnitToggleButton(isKgSelectedNotifier: isKgSelectedNotifier),
-            const SizedBox(height: 40.0),
-            ScaleValueUnit(
-              scaleValueNotifier: scaleValueNotifier,
-              isKgSelectedNotifier: isKgSelectedNotifier,
-            ),
-            SizedBox(height: 24.0),
-            // Scale widget
-            Center(
-              child: AnimatedScaleWidget(
-                width: MediaQuery.sizeOf(context).width - 48,
-                height: 100,
-                valueNotifier: scaleValueNotifier,
-                isKgSelectedNotifier: isKgSelectedNotifier,
+      // appBar: AppBar(
+      //   title: ValueListenableBuilder<int>(
+      //     valueListenable: scaleValueNotifier,
+      //     builder: (context, value, child) {
+      //       return Text('Scale Value: $value');
+      //     },
+      //   ),
+      // ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          child: Column(
+            children: [
+              ClassicSlideWithFadeInAnimation(
+                child: Text(
+                  'How much \nyour weight?',
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black,
+                  ),
+                ),
               ),
-            ),
-            // Explanation text
-            const Spacer(),
-            Center(
-              child: Text(
-                'This is to set up\nrecommendations just for you.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
+              SizedBox(height: 32.0),
+              ClassicSlideWithFadeInAnimation(
+                delay: AnimationDurations.medium,
+                child: UnitToggleButton(isKgSelectedNotifier: isKgSelectedNotifier),
               ),
-            ),
-            const SizedBox(height: 40.0),
-            // Navigation buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Handle back navigation
-                    Navigator.pop(context);
-                  },
-                  child: Text('Back', style: TextStyle(color: Colors.grey[400], fontSize: 16.0)),
+              const SizedBox(height: 40.0),
+              ClassicSlideWithFadeInAnimation(
+                child: ScaleValueUnit(
+                  scaleValueNotifier: scaleValueNotifier,
+                  isKgSelectedNotifier: isKgSelectedNotifier,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle next navigation
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BodyPartsPage()),);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                  ),
-                  child: const Text(
-                    'Next',
-                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 24.0),
+              // Scale widget
+              ClassicSlideWithFadeInAnimation(
+                delay: AnimationDurations.long,
+                child: Center(
+                  child: AnimatedScaleWidget(
+                    width: MediaQuery.sizeOf(context).width - 48,
+                    height: 100,
+                    valueNotifier: scaleValueNotifier,
+                    isKgSelectedNotifier: isKgSelectedNotifier,
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class UnitToggleButton extends StatelessWidget {
-  const UnitToggleButton({super.key, required this.isKgSelectedNotifier});
-  final ValueNotifier<bool> isKgSelectedNotifier;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 40,
-        width: 140,
-        decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
-        child: ValueListenableBuilder<bool>(
-          valueListenable: isKgSelectedNotifier,
-          builder: (context, isKgSelected, _) {
-            return Row(
-              children: [
-                // kg toggle
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (!isKgSelected) {
-                        isKgSelectedNotifier.value = true;
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isKgSelected ? Colors.black : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'kg',
-                          style: TextStyle(
-                            color: isKgSelected ? Colors.white : Colors.grey,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+              ),
+              // Explanation text
+              const Spacer(),
+              ClassicSlideWithFadeInAnimation(
+                delay: AnimationDurations.longer,
+                child: Center(
+                  child: Text(
+                    'This is to set up\nrecommendations just for you.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
                   ),
                 ),
-
-                // lb toggle
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (isKgSelected) {
-                        isKgSelectedNotifier.value = false;
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: !isKgSelected ? Colors.black : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'lb',
-                          style: TextStyle(
-                            color: !isKgSelected ? Colors.white : Colors.grey,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class ScaleValueUnit extends StatelessWidget {
-  const ScaleValueUnit({
-    super.key,
-    required this.scaleValueNotifier,
-    required this.isKgSelectedNotifier,
-  });
-
-  final ValueNotifier<int> scaleValueNotifier;
-  final ValueNotifier<bool> isKgSelectedNotifier;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ValueListenableBuilder<int>(
-        valueListenable: scaleValueNotifier,
-        builder: (context, value, child) {
-          return ValueListenableBuilder<bool>(
-            valueListenable: isKgSelectedNotifier,
-            builder: (context, isKgSelected, _) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+              ),
+              const SizedBox(height: 40.0),
+              // Navigation buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    value.toString(),
-                    style: TextStyle(fontSize: 64.0, fontWeight: FontWeight.w900),
+                  TextButton(
+                    onPressed: () {
+                      // Handle back navigation
+                      Navigator.pop(context);
+                    },
+                    child: Text('Back', style: TextStyle(color: Colors.grey[400], fontSize: 16.0)),
                   ),
-                  const SizedBox(width: 8),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Text(
-                      isKgSelected ? 'kg' : 'lb',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle next navigation
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BodyPartsPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                    ),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
-              );
-            },
-          );
-        },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
