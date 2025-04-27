@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/features/workouts_listing/presentations/dashboard_screen.dart';
 
 import '../data/exercise_type_model.dart';
 
@@ -126,7 +127,10 @@ class _FavoritesMealsSelectorPageState extends State<FavoritesMealsSelectorPage>
                           onPressed:
                               selectedParts.isNotEmpty
                                   ? () {
-                                    // Next action here
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => DashboardScreen()),
+                                    );
                                   }
                                   : null,
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),

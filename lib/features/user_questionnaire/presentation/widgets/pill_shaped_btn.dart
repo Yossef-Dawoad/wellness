@@ -7,20 +7,18 @@ import '../../logic/exercise_questionnaire_modelview.dart';
 class PillShapeButton extends StatefulWidget {
   const PillShapeButton({
     super.key,
-    required this.label,
     required this.exerciseIndex,
     required this.modelView, // Add this parameter
   });
 
-  final String label;
   final int exerciseIndex;
   final ExerciseQuestionnaireModelView modelView; // Store the shared model
 
   @override
-  State<PillShapeButton> createState() => _PillShapeButtonState2();
+  State<PillShapeButton> createState() => _PillShapeButtonState();
 }
 
-class _PillShapeButtonState2 extends State<PillShapeButton> {
+class _PillShapeButtonState extends State<PillShapeButton> {
   late final ExerciseQuestionnaireModelView exercisesviewModel;
   final initialColor = Color(0xFFF7F7F7);
 
@@ -35,7 +33,7 @@ class _PillShapeButtonState2 extends State<PillShapeButton> {
     return ValueListenableBuilder(
       valueListenable: exercisesviewModel.selectedExercises,
       builder: (context, exercises, child) {
-        final exercise = widget.modelView.exercises[widget.exerciseIndex];
+        final exercise = exercisesviewModel.exercises[widget.exerciseIndex];
         return SizedBox(
           key: widget.key,
           child: ElevatedButton(
@@ -51,7 +49,7 @@ class _PillShapeButtonState2 extends State<PillShapeButton> {
               exercisesviewModel.updateSelectedExercises(widget.exerciseIndex);
             },
             child: Text(
-              widget.label,
+              exercise.name,
               style: const TextStyle(color: Colors.black, overflow: TextOverflow.ellipsis),
             ),
           ),

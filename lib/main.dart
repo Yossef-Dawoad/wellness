@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
+import 'package:wellness/height_view.dart';
+import 'features/onboarding/presentaions/onboarding_view.dart';
 import 'features/user_questionnaire/presentation/weight_scale_selector_screen.dart';
+import 'features/workouts_listing/presentations/dashboard_screen.dart';
+import 'features/workouts_listing/presentations/workouts_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +20,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Animated Scale Demo',
       theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
-      home: WeightScalePage(),
+      // home: HeightPickerScreen(),
+      // home: OnboardingView(),
+      home: DashboardScreen(),
+      // // home: WorkoutsScreen(),
+      // // home: WeightScalePage(),
     );
   }
 }

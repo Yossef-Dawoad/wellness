@@ -28,7 +28,6 @@ class _ExerciseTypesGridViewState extends State<ExerciseTypesGridView> {
         itemBuilder: (context, index) {
           // Pass the shared model to each button
           return PillShapeButton(
-            label: exerisesList[index].name,
             exerciseIndex: index,
             modelView: exerciseModelView, // Pass the shared model
           );
