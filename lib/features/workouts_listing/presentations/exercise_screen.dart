@@ -20,16 +20,19 @@ class ExerciseScreen extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10,),
-          Placeholder(
-
+          Image.asset(
+            'images/gif1.gif',
+            height: 125,
+            width: 200,
           ),
+          // Placeholder(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                onPressed: (){},
-                 child: Text('Next Excercise'),
-              ),
+            onPressed: (){},
+             child: Text('Start'),
+          ),
               ElevatedButton(
                 onPressed: (){},
                  child: Text('Instructions'),
@@ -37,17 +40,25 @@ class ExerciseScreen extends StatelessWidget {
             ],
           ),
           Spacer(flex: 1,),
-          ElevatedButton(
-            onPressed: (){},
-             child: Text('Start'),
-          ),
-          Spacer(flex: 2,),
-          Row(
-            children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new)),
-              Text('00:58'),
-              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))
-            ],
+          Container(
+
+            decoration: BoxDecoration(
+              color: Colors.blueAccent
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new)),
+                Row(
+                  children: [
+                    Text('00:58'),
+                    IconButton(onPressed: (){}, icon: Icon(Icons.square)),
+                    IconButton(onPressed: (){}, icon: Icon(Icons.pause)),
+                  ],
+                ),
+                IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))
+              ],
+            ),
           )
         ],
       )),
