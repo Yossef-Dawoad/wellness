@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/animated_scale_widget.dart';
 
 import '../../../core/common/common_animations.dart';
+import '../../../core/routes/route_model.dart';
 import 'exercise_type_selector_screen.dart';
 import 'widgets/scale_value_unit.dart';
 import 'widgets/unit_toggle_btn.dart';
@@ -122,10 +123,8 @@ class _WeightScalePageState extends State<WeightScalePage> {
                   ElevatedButton(
                     onPressed: () {
                       // Handle next navigation
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ExerciseTypeSelectorPage()),
-                      );
+
+                      Navigator.pushNamed(context, RouteNames.exerciseTypeSelectorScreen);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,

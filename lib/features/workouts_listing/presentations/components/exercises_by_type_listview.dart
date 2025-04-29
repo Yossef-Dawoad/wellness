@@ -14,7 +14,7 @@ class ExercisesByTypeListView extends StatelessWidget {
           (previous, current) =>
               current is ExericesLoadedSuccess ||
               current is ExericesError ||
-              current is ExericesTypeLoadInProgress,
+              current is ExericesLoadInProgress,
       builder: (context, state) {
         return switch (state) {
           ExericesLoadedSuccess(exercises: var exercises) => ListView.separated(
