@@ -14,7 +14,6 @@ class GoalSelectorScreen extends StatefulWidget {
 }
 
 class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
-
   //test local database (shearedPreference)
   // Future<void> some() async {
   //   String? g = await GenderDataBaseShearedPreference.getGenderType('goalSelected');
@@ -49,28 +48,28 @@ class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 "Achieve your goal with your personalized plan",
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 80),
+
               // Goals List
               GoalListview(),
+              // Spacer(),
               BottomNavigationButtons(
-                onNextPressed:
-                    () {
+                onNextPressed: () {
                   //some();
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ActivityLevelSelectorScreen()),
-                    );},
+                    context,
+                    MaterialPageRoute(builder: (context) => ActivityLevelSelectorScreen()),
+                  );
+                },
                 onBackPressed:
                     () => Navigator.pop(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => GenderTypeSelectorScreen(),
-                      ),
+                      MaterialPageRoute(builder: (context) => GenderTypeSelectorScreen()),
                     ),
               ),
             ],

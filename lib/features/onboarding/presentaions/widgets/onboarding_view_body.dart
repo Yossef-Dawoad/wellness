@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wellness/features/onboarding/presentaions/widgets/visual_indicator.dart';
-import 'package:wellness/features/user_questionnaire/presentation/weight_scale_selector_screen.dart';
 
 import '../../../../core/ui/theme.dart';
+import '../../../user_questionnaire/presentation/gender_type_selector_screen.dart';
 import '../../datasources/onboarding_content_model.dart';
 import 'onboarding_page.dart';
 
@@ -54,9 +54,9 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
                 //   context.pushReplacement(LoginView.routePath);
                 // }
                 //TODO: integrate go router
-                Navigator.of(
-                  context,
-                ).pushReplacement(MaterialPageRoute(builder: (context) => const WeightScalePage()));
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const GenderTypeSelectorScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

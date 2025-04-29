@@ -9,8 +9,7 @@ class GenderTypeSelectorScreen extends StatefulWidget {
   const GenderTypeSelectorScreen({super.key});
 
   @override
-  State<GenderTypeSelectorScreen> createState() =>
-      _GenderTypeSelectorScreenState();
+  State<GenderTypeSelectorScreen> createState() => _GenderTypeSelectorScreenState();
 }
 
 class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
@@ -18,7 +17,6 @@ class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-
 
     // //test local database (shearedPreference)
     // Future<void> some() async {
@@ -54,14 +52,13 @@ class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
               const GenderTypesListView(),
               const SizedBox(height: 20.0),
               BottomNavigationButtons(
-                onNextPressed:
-                    () {
-                 // some();
+                onNextPressed: () {
+                  // some();
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
-                    );}
-
+                    context,
+                    MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
+                  );
+                },
               ),
             ],
           ),
