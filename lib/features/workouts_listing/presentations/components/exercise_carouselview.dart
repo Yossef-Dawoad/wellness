@@ -5,6 +5,7 @@ import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart
 import '../../../../core/service_locator/sl.dart';
 import '../exercise_by_type.dart';
 import '../widgets/exercies_card.dart';
+import '../workouts_screen.dart'; // Add this import
 
 // Model class for exercise data
 class ExerciseData {
@@ -83,19 +84,28 @@ class _ExerciseCardsCarouselViewState extends State<ExerciseCardsCarouselView> {
               final data = _exerciseData[index];
               return GestureDetector(
                 onTap: () {
-                  
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => BlocProvider(
-                            create:
-                                (context) =>
-                                    sl<ExericesBloc>()..add(ExercisesByTypeRequested('cardio')),
-                            child: ExerciseByTypeScreen(),
-                          ),
-                    ),
-                  );
+                  // Navigate to different screens based on card index
+                  if (index == 0) {
+                    // First card - navigate to ExerciseByTypeScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => BlocProvider(
+                              create:
+                                  (context) =>
+                                      sl<ExericesBloc>()..add(ExercisesByTypeRequested('cardio')),
+                              child: ExerciseByTypeScreen(),
+                            ),
+                      ),
+                    );
+                  } else {
+                    // Second card - navigate to WorkoutsScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutsScreen()),
+                    );
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),

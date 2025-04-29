@@ -29,6 +29,13 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
     return BlocProvider(
       create: (context) => sl<ExericesBloc>()..add(ExericesTypesRequested()),
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Workout of the day',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+        ),
         body: PersistentPullToReveal(
           controller: pullToRevealCtrl,
           revealableHeight: MediaQuery.sizeOf(context).height * 0.45,
@@ -46,12 +53,6 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Column(
                 children: [
-                  Center(
-                    child: Text(
-                      'Workout of the day',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   const SizedBox(height: 16),
                   const WorkoutsDetailsSummary(),
                   const SizedBox(height: 16),
@@ -128,8 +129,6 @@ class _ExericeTypesViewState extends State<ExericeTypesView> {
               onSelected: (value) {
                 //TODO: add bloc event to fetch exercises by type
                 //TODO: the event may take more than one type
-                print('selected $value');
-                print('the exercise type $exericeType');
                 if (selectedTypes.contains(exericeType)) {
                   selectedTypes.remove(exericeType);
                 } else {

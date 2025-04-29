@@ -23,6 +23,14 @@ class $AssetsImagesGen {
 class $AssetsImagesOnboardingGen {
   const $AssetsImagesOnboardingGen();
 
+  /// File path: assets/images/onboarding/empty_state.svg
+  SvgGenImage get emptyState =>
+      const SvgGenImage('assets/images/onboarding/empty_state.svg');
+
+  /// File path: assets/images/onboarding/empty_state.svg.vec
+  SvgGenImage get emptyStateSvg =>
+      const SvgGenImage.vec('assets/images/onboarding/empty_state.svg.vec');
+
   /// File path: assets/images/onboarding/meals.svg
   SvgGenImage get meals =>
       const SvgGenImage('assets/images/onboarding/meals.svg');
@@ -40,7 +48,14 @@ class $AssetsImagesOnboardingGen {
       const SvgGenImage.vec('assets/images/onboarding/workout.svg.vec');
 
   /// List of all assets
-  List<SvgGenImage> get values => [meals, mealsSvg, workout, workoutSvg];
+  List<SvgGenImage> get values => [
+    emptyState,
+    emptyStateSvg,
+    meals,
+    mealsSvg,
+    workout,
+    workoutSvg,
+  ];
 }
 
 class Assets {
