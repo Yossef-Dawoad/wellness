@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/core/common/services/sheared_preference_database.dart';
 
 import '../../data/gender_type_model.dart';
 
@@ -34,10 +35,11 @@ class _GenderTypesListViewState extends State<GenderTypesListView> {
         itemBuilder: (ctx, index) {
           final isSelected = selectedIndex == index;
           return GestureDetector(
-            onTap: () {
+            onTap: () async {
               setState(() {
                 selectedIndex = index;
               });
+              await GenderDataBaseShearedPreference.saveGenderType('genderType',genderSelector[index].genderType);
             },
             child: Container(
               width: screenWidth * 0.4,

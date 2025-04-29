@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:wellness/core/common/services/sheared_preference_database.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/gender_types_listview.dart';
 import 'package:wellness/features/user_questionnaire/presentation/goal_selector_screen.dart';
 
@@ -17,6 +18,18 @@ class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
+
+
+    // //test local database (shearedPreference)
+    // Future<void> some() async {
+    //   String? g = await GenderDataBaseShearedPreference.getGenderType('genderType');
+    //   if(g != null){
+    //     print(g);
+    //   }
+    //   else{
+    //     print('no data');
+    //   }
+    // }
 
     return Scaffold(
       body: SafeArea(
@@ -42,10 +55,12 @@ class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
               const SizedBox(height: 20.0),
               BottomNavigationButtons(
                 onNextPressed:
-                    () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
-                ),
+                    () {
+                 // some();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
+                    );}
 
               ),
             ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/common/services/sheared_preference_database.dart';
+
 class ActivityLevelListview extends StatefulWidget {
   const ActivityLevelListview({super.key});
 
@@ -30,10 +32,11 @@ class _ActivityLevelListviewState extends State<ActivityLevelListview> {
             (context, index) => SizedBox(height: screenHeight * 0.03),
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
+            onTap: () async {
               setState(() {
                 selectedActivityIndex = index;
               });
+              await GenderDataBaseShearedPreference.saveGenderType('activitySelected',activityLevel[index]);
             },
             child: Container(
               height: screenHeight * 0.07,

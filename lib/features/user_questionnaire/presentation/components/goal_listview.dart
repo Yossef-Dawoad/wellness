@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/common/services/sheared_preference_database.dart';
+
 class GoalListview extends StatefulWidget {
   const GoalListview({super.key});
 
@@ -30,10 +32,11 @@ class _GoalListviewState extends State<GoalListview> {
             (context, index) => SizedBox(height: screenHeight * 0.03),
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
+            onTap: () async {
               setState(() {
                 selectedGoalIndex = index;
               });
+              await GenderDataBaseShearedPreference.saveGenderType('goalSelected',goalsSentence[index]);
             },
             child: Container(
               height: screenHeight * 0.07,

@@ -39,6 +39,7 @@ dependencies:
   #Local Database
   drift: ^2.26.0
   drift_flutter: ^0.2.4
+  shared_preferences: ^2.2.2
 
   #Networking
   dio: ^5.8.0+1
@@ -52,6 +53,9 @@ dependencies:
   dart_mappable: ^4.5.0
   flutter_svg: ^2.1.0
   vector_graphics_compiler: 1.1.16
+
+
+
 
 dev_dependencies:
   flutter_test:

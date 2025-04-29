@@ -3,6 +3,7 @@ import 'package:wellness/features/user_questionnaire/presentation/activity_level
 import 'package:wellness/features/user_questionnaire/presentation/components/goal_listview.dart';
 import 'package:wellness/features/user_questionnaire/presentation/gender_type_selector_screen.dart';
 
+//import '../../../core/common/services/sheared_preference_database.dart';
 import 'components/bottom_navigation_btns.dart';
 
 class GoalSelectorScreen extends StatefulWidget {
@@ -13,6 +14,18 @@ class GoalSelectorScreen extends StatefulWidget {
 }
 
 class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
+
+  //test local database (shearedPreference)
+  // Future<void> some() async {
+  //   String? g = await GenderDataBaseShearedPreference.getGenderType('goalSelected');
+  //   if(g != null){
+  //     print(g);
+  //   }
+  //   else{
+  //     print('no data');
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
@@ -46,10 +59,12 @@ class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
               GoalListview(),
               BottomNavigationButtons(
                 onNextPressed:
-                    () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ActivityLevelSelectorScreen()),
-                ),
+                    () {
+                  //some();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ActivityLevelSelectorScreen()),
+                    );},
                 onBackPressed:
                     () => Navigator.pop(
                       context,
