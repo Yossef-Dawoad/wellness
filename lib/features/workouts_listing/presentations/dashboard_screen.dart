@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/service_locator/sl.dart';
+import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart';
 
 import 'components/exercise_carouselview.dart';
 import 'components/floating_nav_bar.dart';
 import 'workouts_screen.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class MainHomeScreen extends StatefulWidget {
+  const MainHomeScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<MainHomeScreen> createState() => _MainHomeScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _MainHomeScreenState extends State<MainHomeScreen> {
   final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier(0);
 
   final List<Widget> _screens = [
     const DashboardHomeScreen(),
     const WorkoutsScreen(),
-    const Center(child: Text('Activity')),
+    // const Center(child: Text('Activity')),
     const Center(child: Text('Profile')),
   ];
 

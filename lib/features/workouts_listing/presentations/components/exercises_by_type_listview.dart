@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/gen/assets.gen.dart';
 import '../../logic/bloc/exerices_bloc.dart';
 import '../workouts_screen.dart';
 
@@ -14,7 +15,7 @@ class ExercisesByTypeListView extends StatelessWidget {
           (previous, current) =>
               current is ExericesLoadedSuccess ||
               current is ExericesError ||
-              current is ExericesTypeLoadInProgress,
+              current is ExericesLoadInProgress,
       builder: (context, state) {
         return switch (state) {
           ExericesLoadedSuccess(exercises: var exercises) => ListView.separated(
@@ -27,8 +28,10 @@ class ExercisesByTypeListView extends StatelessWidget {
             },
           ),
           ExericesError(message: var message) => Center(child: Text(message)),
-          ExericesInitial() => Center(child: Text('Initial state')),
-          ExericesTypeLoadInProgress() => Center(child: CircularProgressIndicator()),
+          ExericesInitial() => Center(
+            child: Assets.images.onboarding.emptyStateSvg.svg(width: 120, height: 120),
+          ),
+          ExericesLoadInProgress() => Center(child: CircularProgressIndicator()),
           _ => Center(child: Text('unknow state occurs')),
         };
       },

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wellness/core/common/widgets/pull_to_reveal.dart';
 import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart';
-import 'package:wellness/features/workouts_listing/datasources/exercices_service.dart';
-import 'package:wellness/features/workouts_listing/datasources/exerice_repo.dart';
 
+import '../../../core/service_locator/sl.dart';
 import '../datasources/exercice_model.dart';
 import 'components/exercises_by_type_listview.dart';
 import 'widgets/workout_details_summary.dart';
@@ -20,29 +19,23 @@ class WorkoutsScreen extends StatefulWidget {
 
 class _WorkoutsScreenState extends State<WorkoutsScreen> {
   final pullToRevealCtrl = PersistentPullToRevealController();
-  final _exericeBloc = ExericesBloc(ExericeRepository(exericeService: RapidAPIExerciseDB()));
 
   // list -> MuscleTypeChips -> when user click on type -> add to list
   // when list changes  -> call the api can get new data -> rebuild the list of exercie by type
   final List<ExericeType> types = [];
 
   @override
-  void initState() {
-    super.initState();
-    _exericeBloc.add(ExericesTypesRequested());
-  }
-
-  @override
-  void dispose() {
-    _exericeBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _exericeBloc,
+    return BlocProvider(
+      create: (context) => sl<ExericesBloc>()..add(ExericesTypesRequested()),
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Workout of the day',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+        ),
         body: PersistentPullToReveal(
           controller: pullToRevealCtrl,
           revealableHeight: MediaQuery.sizeOf(context).height * 0.45,
@@ -60,18 +53,12 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Column(
                 children: [
-                  Center(
-                    child: Text(
-                      'Workout of the day',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                   const SizedBox(height: 16),
                   const WorkoutsDetailsSummary(),
                   const SizedBox(height: 16),
                   const MuscleTypeChips(),
                   const SizedBox(height: 16),
-                  const Expanded(child: ExercisesByTypeListView()),
+                  Expanded(child: ExercisesByTypeListView()),
                 ],
               ),
             ),
@@ -92,35 +79,37 @@ class MuscleTypeChips extends StatefulWidget {
 class _MuscleTypeChipsState extends State<MuscleTypeChips> {
   @override
   Widget build(BuildContext context) {
-    final _exericeBloc = ExericesBloc(ExericeRepository(exericeService: RapidAPIExerciseDB()));
-
-    return BlocProvider(
-      create: (context) => _exericeBloc..add(ExericesTypesRequested()),
-      child: BlocBuilder<ExericesBloc, ExericesState>(
-        buildWhen:
-            (previous, current) =>
-                current is ExericesTypesLoadedSuccess ||
-                current is ExericesError ||
-                current is ExericesTypeLoadInProgress,
-        builder: (context, state) {
-          return switch (state) {
-            ExericesInitial() => Center(child: Text('Initial state')),
-            ExericesTypeLoadInProgress() => Center(child: CircularProgressIndicator()),
-            ExericesError() => Center(child: Text('Something went wrong')),
-            ExericesTypesLoadedSuccess(types: var exericesTypes) => ExericeTypesView(
-              types: exericesTypes,
-            ),
-            _ => Center(child: Text('unknow state occurs')),
-          };
-        },
-      ),
+    return BlocBuilder<ExericesBloc, ExericesState>(
+      buildWhen:
+          (previous, current) =>
+              current is ExericesTypesLoadedSuccess ||
+              current is ExericesError ||
+              current is ExericesTypeLoadInProgress,
+      builder: (context, state) {
+        return switch (state) {
+          ExericesInitial() => Center(child: Text('Initial state')),
+          ExericesTypeLoadInProgress() => Center(child: CircularProgressIndicator()),
+          ExericesError() => Center(child: Text('Something went wrong')),
+          ExericesTypesLoadedSuccess(types: var exericesTypes) => ExericeTypesView(
+            types: exericesTypes,
+          ),
+          _ => Center(child: Text('unknow state occurs')),
+        };
+      },
     );
   }
 }
 
-class ExericeTypesView extends StatelessWidget {
+class ExericeTypesView extends StatefulWidget {
   const ExericeTypesView({super.key, required this.types});
   final List<ExericeType> types;
+
+  @override
+  State<ExericeTypesView> createState() => _ExericeTypesViewState();
+}
+
+class _ExericeTypesViewState extends State<ExericeTypesView> {
+  final List<ExericeType> selectedTypes = [];
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +117,9 @@ class ExericeTypesView extends StatelessWidget {
       height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: types.length,
+        itemCount: widget.types.length,
         itemBuilder: (context, index) {
-          final exericeType = types[index];
+          final exericeType = widget.types[index];
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: ChoiceChip(
@@ -140,6 +129,13 @@ class ExericeTypesView extends StatelessWidget {
               onSelected: (value) {
                 //TODO: add bloc event to fetch exercises by type
                 //TODO: the event may take more than one type
+                if (selectedTypes.contains(exericeType)) {
+                  selectedTypes.remove(exericeType);
+                } else {
+                  selectedTypes.add(exericeType);
+                }
+
+                context.read<ExericesBloc>().add(ExercisesByTypeRequested(exericeType.toValue()));
               },
             ),
           );
@@ -165,33 +161,32 @@ class ExerciseTile extends StatelessWidget {
           Container(
             width: 100,
             padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              // image: DecorationImage(
-              //   image: AssetImage('assets/images/chest.jpg'),
-              //   fit: BoxFit.cover,
-              // ),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
             child: Image.network(exercise.gifUrl),
           ),
-          Container(
-            padding: const EdgeInsets.all(8.0),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(exercise.name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Row(
+                Text(
+                  exercise.name,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  softWrap: true,
+                  maxLines: 2,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
                       decoration: BoxDecoration(
                         color: Colors.blueGrey.shade100,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Text(
-                        exercise.target.name,
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                        exercise.target.toValue(),
+                        style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
                     ),
                     SizedBox(width: 8),
@@ -201,7 +196,7 @@ class ExerciseTile extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          // const Spacer(),
           Icon(Icons.arrow_forward_ios, size: 14),
         ],
       ),

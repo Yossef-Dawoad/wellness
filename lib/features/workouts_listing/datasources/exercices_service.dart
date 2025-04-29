@@ -33,7 +33,6 @@ class RapidAPIExerciseDB implements ExericeService {
 
       final List<dynamic> data = response.data;
       return data.map<Exercise>((item) {
-        print(item.runtimeType);
         return Exercise.fromMap(item);
       }).toList();
     } catch (e) {
