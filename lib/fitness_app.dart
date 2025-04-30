@@ -11,6 +11,7 @@ class FitnessApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Animated Scale Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
       onGenerateRoute: AppRouter.generateRoute,
       initialRoute: RouteNames.onBoardingScreens,
