@@ -4,6 +4,7 @@ import 'package:wellness/core/common/widgets/pull_to_reveal.dart';
 import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart';
 import 'package:wellness/features/workouts_listing/datasources/exercices_service.dart';
 import 'package:wellness/features/workouts_listing/datasources/exerice_repo.dart';
+import 'package:wellness/features/workouts_listing/presentations/exercise_screen.dart';
 
 import '../datasources/exercice_model.dart';
 import 'components/exercises_by_type_listview.dart';
@@ -202,7 +203,10 @@ class ExerciseTile extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Icon(Icons.arrow_forward_ios, size: 14),
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseScreen(),
+            settings: RouteSettings(arguments: exercise)));
+          }, icon: Icon(Icons.arrow_forward_ios, size: 14), ),
         ],
       ),
     );

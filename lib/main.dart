@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
       // home: HeightPickerScreen(),
       // home: OnboardingView(),
-      home: ExerciseScreen(),
-      // DashboardScreen(),
+      // home: ExerciseScreen(),
+      home: DashboardScreen(),
       // // home: WorkoutsScreen(),
       // // home: WeightScalePage(),
     );

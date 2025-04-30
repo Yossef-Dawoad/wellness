@@ -47,4 +47,18 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
       emit(ExericesError(message: e.toString()));
     }
   }
+
+  Future<void> _onFetchExerciesByName(
+    FetchExercisesByName event,
+    Emitter<ExericesState> emit,
+  ) async {
+    try {
+      emit(FetchExerciseByNameLoadInProgress());
+      final exercise = await _exericeRepository.getExercisesByName(event.exerciseName);
+      print(exercise);
+      emit(FetchExerciseByNameLoadInSuccess(exerciseByName: exercise));
+    } catch (e) {
+      emit(ExericesError(message: e.toString()));
+    }
+  }
 }
