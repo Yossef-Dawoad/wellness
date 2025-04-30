@@ -28,8 +28,14 @@ class ExercisesByTypeListView extends StatelessWidget {
             },
           ),
           ExericesError(message: var message) => Center(child: Text(message)),
-          ExericesInitial() => Center(
-            child: Assets.images.onboarding.emptyStateSvg.svg(width: 120, height: 120),
+          ExericesInitial() => Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Assets.images.onboarding.emptyStateSvg.svg(width: 120, height: 120),
+              SizedBox(height: 16),
+              Text('No exercises yet !!', style: Theme.of(context).textTheme.titleMedium),
+            ],
           ),
           ExericesLoadInProgress() => Center(child: CircularProgressIndicator()),
           _ => Center(child: Text('unknow state occurs')),
