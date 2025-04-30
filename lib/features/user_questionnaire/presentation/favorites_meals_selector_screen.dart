@@ -129,7 +129,7 @@ class _FavoritesMealsSelectorPageState extends State<FavoritesMealsSelectorPage>
                                   ? () {
                                     Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(builder: (context) => DashboardScreen()),
+                                      MaterialPageRoute(builder: (context) => MainHomeScreen()),
                                     );
                                   }
                                   : null,

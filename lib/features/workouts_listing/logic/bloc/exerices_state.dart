@@ -12,6 +12,8 @@ final class ExericesInitial extends ExericesState {}
 
 final class ExericesTypeLoadInProgress extends ExericesState {}
 
+final class ExericesLoadInProgress extends ExericesState {}
+
 final class ExericesTypesLoadedSuccess extends ExericesState {
   final List<ExericeType> types;
   const ExericesTypesLoadedSuccess({required this.types});

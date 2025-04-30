@@ -91,7 +91,7 @@ enum TargetMuscle {
   levatorScapulae,
   pectorals,
   quads,
-  @MappableValue('rectus anterior')
+  @MappableValue('serratus anterior')
   serratusAnterior,
   spine,
   traps,
@@ -101,6 +101,13 @@ enum TargetMuscle {
   quadriceps,
   core,
   chest,
+  rhomboids,
+  deltoids,
+  trapezius,
+  brachialis,
+  wrists,
+  ankles,
+  soleus,
 }
 
 @MappableClass()

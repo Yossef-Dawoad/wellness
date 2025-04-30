@@ -289,7 +289,7 @@ class TargetMuscleMapper extends EnumMapper<TargetMuscle> {
         return TargetMuscle.pectorals;
       case r'quads':
         return TargetMuscle.quads;
-      case 'rectus anterior':
+      case 'serratus anterior':
         return TargetMuscle.serratusAnterior;
       case r'spine':
         return TargetMuscle.spine;
@@ -305,6 +305,20 @@ class TargetMuscleMapper extends EnumMapper<TargetMuscle> {
         return TargetMuscle.core;
       case r'chest':
         return TargetMuscle.chest;
+      case r'rhomboids':
+        return TargetMuscle.rhomboids;
+      case r'deltoids':
+        return TargetMuscle.deltoids;
+      case r'trapezius':
+        return TargetMuscle.trapezius;
+      case r'brachialis':
+        return TargetMuscle.brachialis;
+      case r'wrists':
+        return TargetMuscle.wrists;
+      case r'ankles':
+        return TargetMuscle.ankles;
+      case r'soleus':
+        return TargetMuscle.soleus;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -346,7 +360,7 @@ class TargetMuscleMapper extends EnumMapper<TargetMuscle> {
       case TargetMuscle.quads:
         return r'quads';
       case TargetMuscle.serratusAnterior:
-        return 'rectus anterior';
+        return 'serratus anterior';
       case TargetMuscle.spine:
         return r'spine';
       case TargetMuscle.traps:
@@ -361,6 +375,20 @@ class TargetMuscleMapper extends EnumMapper<TargetMuscle> {
         return r'core';
       case TargetMuscle.chest:
         return r'chest';
+      case TargetMuscle.rhomboids:
+        return r'rhomboids';
+      case TargetMuscle.deltoids:
+        return r'deltoids';
+      case TargetMuscle.trapezius:
+        return r'trapezius';
+      case TargetMuscle.brachialis:
+        return r'brachialis';
+      case TargetMuscle.wrists:
+        return r'wrists';
+      case TargetMuscle.ankles:
+        return r'ankles';
+      case TargetMuscle.soleus:
+        return r'soleus';
     }
   }
 }

@@ -4,7 +4,6 @@ import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import 'package:wellness/features/workouts_listing/datasources/exerice_repo.dart';
 
-import '../../../user_questionnaire/data/exercise_type_model.dart';
 import '../../datasources/exercice_model.dart';
 
 part 'exerices_event.dart';
@@ -17,7 +16,9 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
   // final Map<String, List<Exercise>> _cachedExercises = {};
 
   ExericesBloc(this._exericeRepository) : super(ExericesInitial()) {
-    on<ExericesEvent>((event, emit) => emit(ExericesTypeLoadInProgress()));
+    // Remove the general handler that was causing the issue
+    // on<ExericesEvent>((event, emit) => emit(ExericesTypeLoadInProgress()));
+    
     on<ExericesTypesRequested>(_onExerciceTypesRequested);
     on<ExercisesByTypeRequested>(_onExerciceTypeSelected);
   }
@@ -26,6 +27,8 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
     ExericesTypesRequested event,
     Emitter<ExericesState> emit,
   ) async {
+    // Emit loading state only for this specific event
+    emit(ExericesTypeLoadInProgress());
     try {
       final types = await _exericeRepository.getAllExercicesTypes();
       _types.addAll(types);
@@ -39,9 +42,11 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
     ExercisesByTypeRequested event,
     Emitter<ExericesState> emit,
   ) async {
+    // Create a new state for exercises loading that doesn't affect the types view
+    emit(ExericesLoadInProgress());
     try {
       final exercises = await _exericeRepository.getExercisesByType(event.type);
-      print(exercises);
+      print(exercises.first);
       emit(ExericesLoadedSuccess(exercises: exercises));
     } catch (e) {
       emit(ExericesError(message: e.toString()));
