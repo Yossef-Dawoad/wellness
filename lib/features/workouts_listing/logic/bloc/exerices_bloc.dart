@@ -21,6 +21,7 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
     
     on<ExericesTypesRequested>(_onExerciceTypesRequested);
     on<ExercisesByTypeRequested>(_onExerciceTypeSelected);
+    on<FetchExercisesByName>(_onFetchExerciseByName);
   }
 
   FutureOr<void> _onExerciceTypesRequested(
@@ -53,7 +54,7 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
     }
   }
 
-  Future<void> _onFetchExerciesByName(
+  Future<void> _onFetchExerciseByName(
     FetchExercisesByName event,
     Emitter<ExericesState> emit,
   ) async {
