@@ -159,13 +159,13 @@ class ExerciseTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
-      height: 100,
+      height: 120,
       child: Row(
         children: [
           Container(
             width: 100,
             padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0)),
             child: Image.network(exercise.gifUrl),
           ),
           Expanded(
