@@ -20,9 +20,9 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
 
   void _onContinue() async {
     int selectedAge = ageList[selectedIndex];
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('تم اختيار العمر: $selectedAge')));
+    // ScaffoldMessenger.of(
+    //   context,
+    // ).showSnackBar(SnackBar(content: Text('تم اختيار العمر: $selectedAge')));
     await sl<SharedPrefHelper>().setValue<int>(UserQuestionaireKeys.age, selectedAge);
     if (mounted) // Check if the widget is being built
       Navigator.push(context, MaterialPageRoute(builder: (context) => WeightScalePage()));
