@@ -33,3 +33,13 @@ class _LoadExerices extends ExericesEvent {
   @override
   List<Object> get props => [forceReload];
 }
+
+
+class FetchExercisesByName extends ExericesEvent {
+  final String exerciseName;
+
+  const FetchExercisesByName(this.exerciseName);
+
+  @override
+  List<Object> get props => [exerciseName];
+}

@@ -22,4 +22,12 @@ class ExericeRepository {
       throw Exception('Failed to fetch exercises By Type');
     }
   }
+
+  Future<List<Exercise>> getExercisesByName(String name) async{
+    try {
+      return await exericeService.fetchExerciseByName(name);
+    } catch (e) {
+      throw Exception('Failed to fetch exercises By Name');
+    }
+  }
 }

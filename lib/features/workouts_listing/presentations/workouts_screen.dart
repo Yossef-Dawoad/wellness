@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wellness/core/common/widgets/pull_to_reveal.dart';
 import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart';
+import 'package:wellness/features/workouts_listing/presentations/exercise_screen.dart';
 
 import '../../../core/service_locator/sl.dart';
 import '../datasources/exercice_model.dart';
@@ -146,9 +147,12 @@ class _ExericeTypesViewState extends State<ExericeTypesView> {
 }
 
 class ExerciseTile extends StatelessWidget {
-  const ExerciseTile({super.key, required this.exercise});
+  const ExerciseTile({super.key, required this.exercise, required this.blocContext, required this.exercises, required this.index});
 
   final Exercise exercise;
+  final BuildContext blocContext; // Add a BuildContext parameter to access the bloc
+  final List<Exercise> exercises; // List of all exercises
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -196,8 +200,26 @@ class ExerciseTile extends StatelessWidget {
               ],
             ),
           ),
-          // const Spacer(),
-          Icon(Icons.arrow_forward_ios, size: 14),
+          Spacer(),
+          IconButton(
+            onPressed: () {
+                    // Use BlocProvider.value to provide the existing ExercisesBloc
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider.value(
+                          value: blocContext.read<ExericesBloc>(),
+                          child:  ExerciseScreen(
+                            exercises: exercises, // Pass the list of exercises
+                            currentIndex: index,
+                            exerciseBloc: blocContext.read<ExericesBloc>(),
+                          ),
+                        ),
+                        // settings: RouteSettings(arguments: exercise.name),
+                      ),
+                    );
+                  },
+          icon: Icon(Icons.arrow_forward_ios, size: 24), ),
         ],
       ),
     );

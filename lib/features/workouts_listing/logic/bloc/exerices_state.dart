@@ -36,3 +36,15 @@ final class ExericesError extends ExericesState {
 }
 
 //////
+///
+
+final class FetchExerciseByNameLoadInProgress extends ExericesState {}
+final class FetchExerciseByNameLoadInSuccess extends ExericesState {
+  final List<Exercise> exerciseByName;
+
+  const FetchExerciseByNameLoadInSuccess({required this.exerciseByName});
+
+  @override
+  List<Object?> get props => [exerciseByName];
+  
+}

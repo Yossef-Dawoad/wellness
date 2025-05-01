@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 abstract class ExericeService {
   Future<List<ExericeType>> fetchExericeTypesList();
   Future<List<Exercise>> fetchExercisesByType(String exerciseType);
+  Future<List<Exercise>> fetchExerciseByName(String name);
 }
 
 class RapidAPIExerciseDB implements ExericeService {
@@ -40,6 +41,27 @@ class RapidAPIExerciseDB implements ExericeService {
       return [];
     }
   }
+  
+  @override
+  Future<List<Exercise>> fetchExerciseByName(String exerciseName) async{
+    try{
+      final response = await _dio.get(
+        '$_baseUrl/name/$exerciseName',
+        options: Options(headers: {'x-rapidapi-key': _apiKey}),
+        );
+
+        if (response.statusCode != 200) return [];
+
+        final List<dynamic> data = response.data;
+        return data.map<Exercise>((item) {
+          print(item.runtimeType);
+        return Exercise.fromMap(item);
+        }).toList();
+    } catch (e) {
+      print("Error fetching exercises: $e");
+      return [];
+    }
+  }
 }
 
 class EmptyExerciesApi implements ExericeService {
@@ -50,6 +72,11 @@ class EmptyExerciesApi implements ExericeService {
 
   @override
   Future<List<Exercise>> fetchExercisesByType(String bodyPart) async {
+    return [];
+  }
+  
+  @override
+  Future<List<Exercise>> fetchExerciseByName(String name) async{
     return [];
   }
 }
