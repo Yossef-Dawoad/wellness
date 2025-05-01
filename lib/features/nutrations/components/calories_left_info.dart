@@ -31,7 +31,7 @@ class CaloriesLeftInfo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('$num', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                Text('${num.toInt()}', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 Text(typeInfo, style: TextStyle(fontSize: 16)),
               ],
             ),

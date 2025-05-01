@@ -60,15 +60,17 @@ class ExerciesCard extends StatelessWidget {
                 ],
               ),
 
-            StackedCircularAvatars(
-              avatarRadius: 20,
-              overlapFactor: 0.3,
-              contentCount: 3,
-              contents: [
-                Icon(Icons.timer, size: 20),
-                Icon(Icons.fitness_center, size: 20),
-                Icon(Icons.directions_run, size: 20),
-              ],
+            Expanded(
+              child: StackedCircularAvatars(
+                avatarRadius: 20,
+                overlapFactor: 0.3,
+                contentCount: 3,
+                contents: [
+                  Icon(Icons.timer, size: 20),
+                  Icon(Icons.fitness_center, size: 20),
+                  Icon(Icons.directions_run, size: 20),
+                ],
+              ),
             ),
           ],
         ),
