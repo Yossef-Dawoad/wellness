@@ -23,7 +23,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('تم اختيار العمر: $selectedAge')));
-    await sl<SharedPrefHelper>().setValue<String>(UserQuestionaireKeys.age, selectedAge.toString());
+    await sl<SharedPrefHelper>().setValue<int>(UserQuestionaireKeys.age, selectedAge);
     if (mounted) // Check if the widget is being built
       Navigator.push(context, MaterialPageRoute(builder: (context) => WeightScalePage()));
   }

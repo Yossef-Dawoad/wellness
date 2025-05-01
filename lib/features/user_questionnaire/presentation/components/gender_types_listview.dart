@@ -7,7 +7,8 @@ import 'package:wellness/features/user_questionnaire/data/user_questionaire_keys
 import '../../data/gender_type_model.dart';
 
 class GenderTypesListView extends StatefulWidget {
-  const GenderTypesListView({super.key});
+  const GenderTypesListView({super.key, required this.selectedGenderNotifer});
+  final ValueNotifier<int> selectedGenderNotifer;
 
   @override
   State<GenderTypesListView> createState() => _GenderTypesListViewState();
@@ -33,6 +34,7 @@ class _GenderTypesListViewState extends State<GenderTypesListView> {
           final isSelected = selectedIndex == index;
           return GestureDetector(
             onTap: () async {
+              widget.selectedGenderNotifer.value = index;
               setState(() {
                 selectedIndex = index;
               });

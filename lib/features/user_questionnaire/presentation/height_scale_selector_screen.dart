@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/features/user_questionnaire/presentation/weight_scale_selector_screen.dart';
+
+import '../../../core/common/services/local_database/shared_pref/shared_pref_helper.dart';
+import '../../../core/service_locator/sl.dart';
+import '../data/user_questionaire_keys.dart';
 
 class HeightPickerScreen extends StatefulWidget {
   @override
@@ -39,10 +44,7 @@ class _HeightPickerScreenState extends State<HeightPickerScreen> {
       ),
       body: Column(
         children: [
-          Text(
-            'Your height',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
+          Text('Your height', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
           Container(
             width: 120,
@@ -89,17 +91,11 @@ class _HeightPickerScreenState extends State<HeightPickerScreen> {
                   itemCount: 200,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return CustomPaint(
-                      painter: RulerPainter(),
-                      child: Container(),
-                    );
+                    return CustomPaint(painter: RulerPainter(), child: Container());
                   },
                 ),
                 // الخط والمؤشر في النص
-                Positioned(
-                  left: 50,
-                  child: Icon(Icons.arrow_right, size: 40, color: Colors.green),
-                ),
+                Positioned(left: 50, child: Icon(Icons.arrow_right, size: 40, color: Colors.green)),
                 Positioned(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,6 +122,11 @@ class _HeightPickerScreenState extends State<HeightPickerScreen> {
               child: Text('Continue', style: TextStyle(fontSize: 18)),
               onPressed: () {
                 // Action when continue
+                sl<SharedPrefHelper>().setValue<double>(
+                  UserQuestionaireKeys.height,
+                  selectedHeight,
+                );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => WeightScalePage()));
               },
             ),
           ),
@@ -139,9 +140,10 @@ class _HeightPickerScreenState extends State<HeightPickerScreen> {
 class RulerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.grey
-      ..strokeWidth = 1;
+    final paint =
+        Paint()
+          ..color = Colors.grey
+          ..strokeWidth = 1;
 
     for (int i = 0; i <= size.height ~/ 20; i++) {
       double y = i * 20.0;

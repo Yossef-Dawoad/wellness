@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/core/common/services/local_database/shared_pref/shared_pref_helper.dart';
 //import 'package:wellness/core/common/services/sheared_preference_database.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/gender_types_listview.dart';
 import 'package:wellness/features/user_questionnaire/presentation/goal_selector_screen.dart';
 
+import '../../../core/service_locator/sl.dart';
+import '../data/user_questionaire_keys.dart';
 import 'components/bottom_navigation_btns.dart';
 
 class GenderTypeSelectorScreen extends StatefulWidget {
@@ -13,21 +16,11 @@ class GenderTypeSelectorScreen extends StatefulWidget {
 }
 
 class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
+  final ValueNotifier<int> selectedGenderNotifer = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-
-    // //test local database (shearedPreference)
-    // Future<void> some() async {
-    //   String? g = await GenderDataBaseShearedPreference.getGenderType('genderType');
-    //   if(g != null){
-    //     print(g);
-    //   }
-    //   else{
-    //     print('no data');
-    //   }
-    // }
 
     return Scaffold(
       body: SafeArea(
@@ -49,15 +42,19 @@ class _GenderTypeSelectorScreenState extends State<GenderTypeSelectorScreen> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              const GenderTypesListView(),
+              GenderTypesListView(selectedGenderNotifer: selectedGenderNotifer),
               const SizedBox(height: 20.0),
               BottomNavigationButtons(
-                onNextPressed: () {
-                  // some();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
+                onNextPressed: () async {
+                  await sl<SharedPrefHelper>().setValue<int>(
+                    UserQuestionaireKeys.gender,
+                    selectedGenderNotifer.value,
                   );
+                  if (mounted)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GoalSelectorScreen()),
+                    );
                 },
               ),
             ],

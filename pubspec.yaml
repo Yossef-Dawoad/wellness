@@ -58,6 +58,9 @@ dependencies:
   #images support
   flutter_svg: ^2.1.0
   vector_graphics_compiler: 1.1.16
+  share_plus: ^11.0.0
+  flutter_rating_bar: ^4.0.1
+  percent_indicator: ^4.2.5
 
 dev_dependencies:
   flutter_test:
