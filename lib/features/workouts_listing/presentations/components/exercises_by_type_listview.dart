@@ -24,7 +24,7 @@ class ExercisesByTypeListView extends StatelessWidget {
             separatorBuilder: (context, index) => const SizedBox(height: 8.0),
             itemBuilder: (context, index) {
               final exercise = exercises[index];
-              return ExerciseTile(exercise: exercise);
+              return ExerciseTile(exercise: exercise, blocContext: context, exercises: state.exercises,index: index,);
             },
           ),
           ExericesError(message: var message) => Center(child: Text(message)),

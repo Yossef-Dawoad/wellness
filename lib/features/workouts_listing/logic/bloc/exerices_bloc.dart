@@ -21,6 +21,7 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
     
     on<ExericesTypesRequested>(_onExerciceTypesRequested);
     on<ExercisesByTypeRequested>(_onExerciceTypeSelected);
+    on<FetchExercisesByName>(_onFetchExerciseByName);
   }
 
   FutureOr<void> _onExerciceTypesRequested(
@@ -48,6 +49,20 @@ class ExericesBloc extends Bloc<ExericesEvent, ExericesState> {
       final exercises = await _exericeRepository.getExercisesByType(event.type);
       print(exercises.first);
       emit(ExericesLoadedSuccess(exercises: exercises));
+    } catch (e) {
+      emit(ExericesError(message: e.toString()));
+    }
+  }
+
+  Future<void> _onFetchExerciseByName(
+    FetchExercisesByName event,
+    Emitter<ExericesState> emit,
+  ) async {
+    try {
+      emit(FetchExerciseByNameLoadInProgress());
+      final exercise = await _exericeRepository.getExercisesByName(event.exerciseName);
+      print(exercise);
+      emit(FetchExerciseByNameLoadInSuccess(exerciseByName: exercise));
     } catch (e) {
       emit(ExericesError(message: e.toString()));
     }
