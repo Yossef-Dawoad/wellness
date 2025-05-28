@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logging/logging.dart';
 import 'package:wellness/fitness_app.dart';
 import 'core/service_locator/sl.dart';
@@ -7,6 +8,7 @@ import 'core/service_locator/sl.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Important for async setup
   await setupLocator(); // Configure GetIt
+  await ScreenUtil.ensureScreenSize();
   _setupLogging();
   runApp(FitnessApp());
 }

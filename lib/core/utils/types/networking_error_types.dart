@@ -4,7 +4,7 @@ enum NetworkErrorType {
   timeout,
   unauthorized,
   badRequest,
-  forbidden,
+  forbiddenError,
   notFound,
   serverError,
   noInternet,
@@ -21,7 +21,7 @@ class NetworkErrorHandler {
       } else if (error.response?.statusCode == 400) {
         return NetworkErrorType.badRequest;
       } else if (error.response?.statusCode == 403) {
-        return NetworkErrorType.forbidden;
+        return NetworkErrorType.forbiddenError;
       } else if (error.response?.statusCode == 404) {
         return NetworkErrorType.notFound;
       } else if (error.response?.statusCode == 500) {
