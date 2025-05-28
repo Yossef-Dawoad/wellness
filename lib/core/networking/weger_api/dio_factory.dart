@@ -43,6 +43,7 @@ class DioFactory {
     );
   }
 
+  /// Clean dio without interceptors (used for refresh token)
   static Dio get cleanDio => Dio(
   BaseOptions(
     baseUrl: ApiConstants.apiBaseUrl,
