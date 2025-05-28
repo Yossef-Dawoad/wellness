@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/features/workouts_listing/presentations/dashboard_screen.dart';
 
 import 'components/bottom_navigation_btns.dart';
 import 'components/exercise_types_gridview.dart';
@@ -40,7 +41,7 @@ class _ExerciseTypeSelectorPageState extends State<ExerciseTypeSelectorPage> {
                 onNextPressed:
                     () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FavoritesMealsSelectorPage()),
+                      MaterialPageRoute(builder: (context) => MainHomeScreen()),
                     ),
               ),
             ],

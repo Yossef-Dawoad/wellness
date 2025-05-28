@@ -10,7 +10,7 @@ abstract class ExericeService {
 class RapidAPIExerciseDB implements ExericeService {
   final _dio = Dio();
   final String _baseUrl = 'https://exercisedb.p.rapidapi.com/exercises';
-  final String _apiKey = "866be83032msh045a15566f1f92ep1227d9jsnb7893b32ba64";
+  final String _apiKey = "1674d0d2f4msheeb3bfc3ab0993bp10ead1jsn7f1c141bb060";
   @override
   Future<List<ExericeType>> fetchExericeTypesList() async {
     final response = await _dio.get(

@@ -47,11 +47,11 @@ class FloatingNavBar extends StatelessWidget {
                 label: 'Workouts',
                 tooltip: "this is workout page",
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.bar_chart_outlined),
-              //   activeIcon: Icon(Icons.bar_chart),
-              //   label: 'Activity',
-              // ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart_outlined),
+                activeIcon: Icon(Icons.bar_chart),
+                label: 'Nutritions',
+              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
                 activeIcon: Icon(Icons.person),

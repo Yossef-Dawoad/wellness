@@ -14,16 +14,7 @@ class ActivityLevelSelectorScreen extends StatefulWidget {
 }
 
 class _GoalSelectorScreenState extends State<ActivityLevelSelectorScreen> {
-  //test local database (shearedPreference)
-  // Future<void> some() async {
-  //   String? g = await GenderDataBaseShearedPreference.getGenderType('activitySelected');
-  //   if(g != null){
-  //     print(g);
-  //   }
-  //   else{
-  //     print('no data');
-  //   }
-  // }
+  final ValueNotifier<int> _selectedNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +41,7 @@ class _GoalSelectorScreenState extends State<ActivityLevelSelectorScreen> {
               ),
               const SizedBox(height: 100),
               // Activity List
-              ActivityLevelListview(),
+              ActivityLevelListview(selectedIndexNotifier: _selectedNotifier),
               BottomNavigationButtons(
                 onNextPressed:
                     () => Navigator.push(

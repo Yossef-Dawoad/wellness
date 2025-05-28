@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wellness/core/common/services/local_database/shared_pref/shared_pref_helper.dart';
+import 'package:wellness/features/user_questionnaire/data/user_questionaire_keys.dart';
 import 'package:wellness/features/user_questionnaire/presentation/activity_level_selector_screen.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/goal_listview.dart';
 import 'package:wellness/features/user_questionnaire/presentation/gender_type_selector_screen.dart';
 
 //import '../../../core/common/services/sheared_preference_database.dart';
+import '../../../core/service_locator/sl.dart';
 import 'components/bottom_navigation_btns.dart';
 
 class GoalSelectorScreen extends StatefulWidget {
@@ -14,16 +17,7 @@ class GoalSelectorScreen extends StatefulWidget {
 }
 
 class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
-  //test local database (shearedPreference)
-  // Future<void> some() async {
-  //   String? g = await GenderDataBaseShearedPreference.getGenderType('goalSelected');
-  //   if(g != null){
-  //     print(g);
-  //   }
-  //   else{
-  //     print('no data');
-  //   }
-  // }
+  final ValueNotifier<int> selectedGoalNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +50,14 @@ class _GoalSelectorScreenState extends State<GoalSelectorScreen> {
               const SizedBox(height: 80),
 
               // Goals List
-              GoalListview(),
+              GoalListview(selectedGoalNotifier: selectedGoalNotifier),
               // Spacer(),
               BottomNavigationButtons(
                 onNextPressed: () {
-                  //some();
+                  sl<SharedPrefHelper>().setValue<int>(
+                    UserQuestionaireKeys.goal,
+                    selectedGoalNotifier.value,
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ActivityLevelSelectorScreen()),
