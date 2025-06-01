@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wellness/features/login/ui/widgets/dont_have_acount_text.dart';
+import 'package:wellness/features/register/ui/widgets/already_have_account_text.dart';
+import 'package:wellness/features/register/ui/widgets/sign_up_bloc_listener.dart';
+import 'package:wellness/features/register/ui/widgets/sign_up_form.dart';
 
 import '../../../../core/ui/text_styles.dart';
 import '../../../../core/ui/widgets/app_button.dart';
-import '../../logic/cubit/login_cubit.dart';
-import '../widgets/email_and_password.dart';
-import '../widgets/login_cubit_listener.dart';
+import '../../logic/cubit/register_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
@@ -22,10 +22,10 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Login', style: TextStyles.heading1),
+                Text('Sign Up', style: TextStyles.heading1),
                 SizedBox(height: 8.h),
                 Text(
-                  'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
+                  'Sign up now and start exploring all that our app has to offer. We\'re excited to welcome you to our community!',
                   style: TextStyles.caption.copyWith(
                     color: Color(0xff757575).withValues(alpha: 0.7),
                   ),
@@ -34,21 +34,21 @@ class LoginScreen extends StatelessWidget {
 
                 Column(
                   children: [
-                    EmailAndPassword(),
-                    const SizedBox(height: 40),
+                    RegisterForm(),
+                    SizedBox(height: 40),
                     AppTextButton(
                       onPressed: () {
                         validateThenDoLogin(context);
                       },
-                      buttonText: 'Login',
+                      buttonText: 'Sign Up',
                       textStyle: TextStyles.subtitle.copyWith(
                         color: Colors.white,
                       ),
                       buttonHeight: 56,
                     ),
                     SizedBox(height: 40,),
-                    DontHaveAcountText(),
-                    LoginCubitListener(),
+                    AlreadyHaveAccountText(),
+                    SignUpBlocListener(),
                   ],
                 ),
               ],
@@ -60,8 +60,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   void validateThenDoLogin(BuildContext context) {
-    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-      context.read<LoginCubit>().emitLoginStates();
+    if (context.read<RegisterCubit>().formKey.currentState!.validate()) {
+      context.read<RegisterCubit>().emitRegisterStates();
     }
   }
 }

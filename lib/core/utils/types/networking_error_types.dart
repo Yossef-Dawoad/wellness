@@ -33,4 +33,25 @@ class NetworkErrorHandler {
       return NetworkErrorType.unknown;
     }
   }
+
+  static String getErrorMessage(NetworkErrorType errorType) {
+    switch (errorType) {
+      case NetworkErrorType.timeout:
+        return "Connection timeout. Please try again.";
+      case NetworkErrorType.unauthorized:
+        return "Unauthorized. Please login again.";
+      case NetworkErrorType.badRequest:
+        return "Bad request. Please check your data.";
+      case NetworkErrorType.forbiddenError:
+        return "Access denied.";
+      case NetworkErrorType.notFound:
+        return "Data not found.";
+      case NetworkErrorType.serverError:
+        return "Server error. Please try again later.";
+      case NetworkErrorType.noInternet:
+        return "No internet connection.";
+      case NetworkErrorType.unknown:
+        return "An unknown error occurred.";
+    }
+  }
 }

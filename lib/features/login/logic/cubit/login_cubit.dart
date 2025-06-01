@@ -17,32 +17,17 @@ class LoginCubit extends Cubit<LoginState> {
   void emitLoginStates() async {
     emit(LoginLoading());
 
-    final response = await _loginRepo.login(LoginRequestBody(username: userNameController.text, password: passwordController.text));
-
-    response.fold(
-      (error) => emit(LoginError(error: _mapErrorToMessage(error))),
-      (response) => emit(LoginSuccess(data: response)),
+    final response = await _loginRepo.login(
+      LoginRequestBody(
+        username: userNameController.text,
+        password: passwordController.text,
+      ),
     );
-  }
 
-  String _mapErrorToMessage(NetworkErrorType error) {
-    switch (error) {
-      case NetworkErrorType.timeout:
-        return 'Connection timed out';
-      case NetworkErrorType.unauthorized:
-        return 'Unauthorized request';
-      case NetworkErrorType.badRequest:
-        return 'Invalid credentials';
-      case NetworkErrorType.forbiddenError:
-        return 'server is refusing to allow access';
-      case NetworkErrorType.notFound:
-        return 'Endpoint not found';
-      case NetworkErrorType.serverError:
-        return 'Server error';
-      case NetworkErrorType.noInternet:
-        return 'No internet connection';
-      default:
-        return 'Something went wrong';
-    }
+    response.fold((error) {
+      final errorType = NetworkErrorHandler.handle(error);
+      final errorMessage = NetworkErrorHandler.getErrorMessage(errorType);
+      emit(LoginError(error: errorMessage));
+    }, (response) => emit(LoginSuccess(data: response)));
   }
 }

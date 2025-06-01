@@ -6,6 +6,7 @@ class ApiConstants {
   static const String apiBaseUrl = 'https://wger.de/api/v2/';
   static const String refreshTokenEP = 'token/refresh';
   static const String accessTokenEP = 'token';
+  static const String register = 'register/';
   static const String addRoutine = 'routine/';
   static const String getRoutine = 'routine/?is_public=false';
 }

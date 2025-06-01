@@ -14,10 +14,7 @@ class EmailAndPassword extends StatefulWidget {
 class _EmailAndPasswordState extends State<EmailAndPassword> {
   // final formKey = GlobalKey<FormState>();
   bool isObsecureText = true;
-  late TextEditingController passwordController;
-
   
-
   @override
   Widget build(BuildContext context) {
     return Form(
