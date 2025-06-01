@@ -43,16 +43,19 @@ class _ExerciseCardsCarouselViewState extends State<ExerciseCardsCarouselView> {
     ),
     ExerciseData(
       icon: Icons.fitness_center,
-      title: 'Upper Body',
+      title: 'Custom Training',
       subTitle: 'Medium • 18min',
-      description: 'Focus on strengthening your arms, chest, and back muscles.',
+      description: 'Customize your workout with a variety of exercises.',
     ),
   ];
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 0, viewportFraction: 0.9);
+    _pageController = PageController(
+      initialPage: 0,
+      viewportFraction: 0.97, // Increased from 0.9 to make cards wider
+    );
 
     // Listen to page changes and update the notifier
     _pageController.addListener(() {
@@ -108,7 +111,8 @@ class _ExerciseCardsCarouselViewState extends State<ExerciseCardsCarouselView> {
                   }
                 },
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  // Adjusted margins to reduce left margin and make card wider
+                  margin: const EdgeInsets.only(right: 8.0, top: 4.0, bottom: 4.0),
                   child: ExerciesCard(
                     icon: data.icon,
                     title: data.title,

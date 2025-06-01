@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:wellness/features/user_questionnaire/presentation/components/animated_scale_widget.dart';
 
 import '../../../core/common/common_animations.dart';
+import '../../../core/common/services/local_database/shared_pref/shared_pref_helper.dart';
 import '../../../core/routes/route_model.dart';
+import '../../../core/service_locator/sl.dart';
+import '../data/user_questionaire_keys.dart';
 import 'exercise_type_selector_screen.dart';
 import 'widgets/scale_value_unit.dart';
 import 'widgets/unit_toggle_btn.dart';
@@ -123,7 +126,11 @@ class _WeightScalePageState extends State<WeightScalePage> {
                   ElevatedButton(
                     onPressed: () {
                       // Handle next navigation
-
+                      // save the value
+                      sl<SharedPrefHelper>().setValue<double>(
+                        UserQuestionaireKeys.weight,
+                        scaleValueNotifier.value.toDouble(),
+                      );
                       Navigator.pushNamed(context, RouteNames.exerciseTypeSelectorScreen);
                     },
                     style: ElevatedButton.styleFrom(

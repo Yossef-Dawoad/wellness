@@ -31,15 +31,15 @@ class SharedPrefHelper {
     };
   }
 
-  T? getValue<T>(String key) {
+  Future<T?> getValue<T>(String key) async {
     _log('Getting ${T.toString()} with key: $key');
 
     return switch (T) {
-      const (String) => _prefs.getString(key) as T?,
-      const (int) => _prefs.getInt(key) as T?,
-      const (bool) => _prefs.getBool(key) as T?,
-      const (double) => _prefs.getDouble(key) as T?,
-      const (List<String>) => _prefs.getStringList(key) as T?,
+      const (String) => await _prefs.getString(key) as T?,
+      const (int) => await _prefs.getInt(key) as T?,
+      const (bool) => await _prefs.getBool(key) as T?,
+      const (double) => await _prefs.getDouble(key) as T?,
+      const (List<String>) => await _prefs.getStringList(key) as T?,
       _ => throw UnsupportedError('Unsupported type: ${T.runtimeType}'),
     };
   }

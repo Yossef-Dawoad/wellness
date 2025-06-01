@@ -36,6 +36,7 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: PersistentPullToReveal(
           controller: pullToRevealCtrl,
@@ -200,7 +201,7 @@ class ExerciseTile extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          // Spacer(),
           IconButton(
             onPressed: () {
                     // Use BlocProvider.value to provide the existing ExercisesBloc

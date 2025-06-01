@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/service_locator/sl.dart';
-import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../nutrations/cubits/calories_cubit/calories_cubit.dart';
+import '../../nutrations/cubits/calories_cubit/calories_state.dart';
+import '../../nutrations/views/nutration_screen.dart';
+import '../../profile/presentation/profile_screen.dart';
 import 'components/exercise_carouselview.dart';
 import 'components/floating_nav_bar.dart';
 import 'workouts_screen.dart';
@@ -20,8 +23,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   final List<Widget> _screens = [
     const DashboardHomeScreen(),
     const WorkoutsScreen(),
-    // const Center(child: Text('Activity')),
-    const Center(child: Text('Profile')),
+    const NutrationScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -56,82 +59,173 @@ class DashboardHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hi, John!',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Let\'s start your workout',
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                  CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.blue[100],
-                    child: Icon(Icons.person, color: Colors.blue),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Text('Today\'s Workout', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 250,
-                width: MediaQuery.sizeOf(context).width,
-                child: ExerciseCardsCarouselView(),
-              ),
+    return BlocProvider(
+      create: (_) => CaloriesCubit()..calculate(),
+      child: SafeArea(
+        bottom: false, // Don't let SafeArea handle bottom padding
+        child: SingleChildScrollView(
+          // Add padding at the bottom to account for the floating nav bar
+          padding: const EdgeInsets.only(bottom: 80),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi, John!',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Let\'s start your workout',
+                          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                    CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Colors.blue[100],
+                      child: Icon(Icons.person, color: Colors.blue),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'Today\'s Workout',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 250,
+                  width: MediaQuery.sizeOf(context).width,
+                  child: ExerciseCardsCarouselView(),
+                ),
 
-              const SizedBox(height: 24),
-              const SizedBox(height: 24),
-              Text('Categories', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 16),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                children: [
-                  _buildCategoryCard('Strength', Icons.fitness_center, Colors.orange),
-                  _buildCategoryCard('Cardio', Icons.directions_run, Colors.green),
-                  _buildCategoryCard('Yoga', Icons.self_improvement, Colors.purple),
-                  _buildCategoryCard('Stretching', Icons.accessibility_new, Colors.blue),
-                ],
-              ),
-            ],
+                const SizedBox(height: 18),
+                Text(
+                  'Nutrition Overview',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                BlocBuilder<CaloriesCubit, CaloriesState>(
+                  builder: (context, state) {
+                    if (state is CaloriesLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is CaloriesLoaded) {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        children: [
+                          _buildNutritionCard(
+                            'Calories',
+                            state.calories.toInt().toString(),
+                            'kcal left',
+                            Icons.local_fire_department,
+                            Color(0xFF6C5CE7),
+                            0.7,
+                          ),
+                          _buildNutritionCard(
+                            'Protein',
+                            state.protein.toInt().toString(),
+                            'g left',
+                            Icons.electric_bolt_sharp,
+                            Color(0xFFE06D6D),
+                            0.6,
+                          ),
+                          _buildNutritionCard(
+                            'Carbs',
+                            state.carbs.toInt().toString(),
+                            'g left',
+                            Icons.grass,
+                            Color(0xFFDE9D6F),
+                            0.8,
+                          ),
+                          _buildNutritionCard(
+                            'Fats',
+                            state.fats.toInt().toString(),
+                            'g left',
+                            Icons.opacity,
+                            Color(0xFF699FDE),
+                            0.5,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(child: Text('No nutrition data available'));
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryCard(String title, IconData icon, Color color) {
+  Widget _buildNutritionCard(
+    String title,
+    String value,
+    String unit,
+    IconData icon,
+    Color color,
+    double percent,
+  ) {
     return Container(
       decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 40, color: color),
-          SizedBox(height: 8),
-          Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
         ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[700],
+                  ),
+                ),
+                CircularPercentIndicator(
+                  radius: 18,
+                  lineWidth: 3.0,
+                  percent: percent,
+                  center: Icon(icon, size: 16, color: color),
+                  progressColor: color,
+                  backgroundColor: color.withOpacity(0.2),
+                ),
+              ],
+            ),
+            Spacer(),
+            Text(
+              value,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+            ),
+            Text(unit, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+          ],
+        ),
       ),
     );
   }

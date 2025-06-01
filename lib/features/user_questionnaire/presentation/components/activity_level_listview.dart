@@ -6,7 +6,8 @@ import '../../../../core/service_locator/sl.dart';
 import '../../data/user_questionaire_keys.dart';
 
 class ActivityLevelListview extends StatefulWidget {
-  const ActivityLevelListview({super.key});
+  const ActivityLevelListview({super.key, required this.selectedIndexNotifier});
+  final ValueNotifier<int> selectedIndexNotifier;
 
   @override
   State<ActivityLevelListview> createState() => _ActivityLevelListviewState();
@@ -37,10 +38,8 @@ class _ActivityLevelListviewState extends State<ActivityLevelListview> {
               setState(() {
                 selectedActivityIndex = index;
               });
-              sl<SharedPrefHelper>().setValue<String>(
-                UserQuestionaireKeys.activity,
-                activityLevel[index],
-              );
+              widget.selectedIndexNotifier.value = index;
+              sl<SharedPrefHelper>().setValue<int>(UserQuestionaireKeys.activity, index);
             },
             child: Container(
               height: screenHeight * 0.07,
