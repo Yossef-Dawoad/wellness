@@ -7,7 +7,7 @@ class ApiConstants {
   static const String refreshTokenEP = 'token/refresh';
   static const String accessTokenEP = 'token';
   static const String addRoutine = 'routine/';
-  static const String getRoutine = 'routine/';
+  static const String getRoutine = 'routine/?is_public=false';
 }
 
 class ApiErrors {

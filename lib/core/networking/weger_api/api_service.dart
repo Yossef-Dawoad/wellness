@@ -4,6 +4,7 @@ import 'package:retrofit/http.dart';
 import 'package:wellness/features/login/data/models/login_response.dart';
 
 import '../../../features/login/data/models/login_request_body.dart';
+import '../../../features/routine/data/models/routine_response.dart';
 import '../api_constants.dart';
 part 'api_service.g.dart';
 
@@ -13,4 +14,7 @@ abstract class ApiService {
 
   @POST(ApiConstants.accessTokenEP)
   Future<LoginResponse> login(@Body() LoginRequestBody loginRequestBody);
+
+  @GET(ApiConstants.getRoutine)
+  Future<RoutineResponse> getRoutines();
 }
