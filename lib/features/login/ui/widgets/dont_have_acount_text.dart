@@ -23,7 +23,6 @@ class DontHaveAcountText extends StatelessWidget {
             recognizer:
                 TapGestureRecognizer()
                   ..onTap = () {
-                    print('push register Screen');
                     context.pushNamed(RouteNames.registerScreen);
                   },
           ),

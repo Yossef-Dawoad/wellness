@@ -11,6 +11,9 @@ import 'package:wellness/features/workouts_listing/logic/bloc/exerices_bloc.dart
 
 import '../../features/register/data/repo/register_repo.dart';
 import '../../features/register/logic/cubit/register_cubit.dart';
+import '../../features/routine/data/repo/routine_repo.dart';
+import '../../features/routine/logic/cubit/post_routine_cubit.dart';
+import '../../features/routine/logic/cubit/routine_cubit.dart';
 import '../networking/weger_api/api_service.dart';
 import '../networking/weger_api/dio_factory.dart';
 
@@ -68,4 +71,9 @@ void workoutsAndRoutine() {
   // Register
   sl.registerLazySingleton<RegisterRepo>(() => RegisterRepo(sl()));
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl()));
+
+  // Get and Post Routine
+  sl.registerLazySingleton<RoutineRepo>(() => RoutineRepo(sl()));
+  sl.registerLazySingleton<RoutineCubit>(() => RoutineCubit(sl()));
+  sl.registerLazySingleton<PostRoutineCubit>(() => PostRoutineCubit(sl()));
 }

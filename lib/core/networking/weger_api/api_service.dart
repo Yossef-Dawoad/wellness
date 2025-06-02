@@ -6,7 +6,9 @@ import 'package:wellness/features/login/data/models/login_response.dart';
 import '../../../features/login/data/models/login_request_body.dart';
 import '../../../features/register/data/models/register_request_body.dart';
 import '../../../features/register/data/models/register_response.dart';
-import '../../../features/routine/data/models/routine_response.dart';
+import '../../../features/routine/data/models/get_routine_response.dart';
+import '../../../features/routine/data/models/post_routine_request_body.dart';
+import '../../../features/routine/data/models/post_routine_response.dart';
 import '../api_constants.dart';
 part 'api_service.g.dart';
 
@@ -21,5 +23,8 @@ abstract class ApiService {
   Future<RegisterResponse> register(@Body() RegisterRequestBody registerRequestBody);
 
   @GET(ApiConstants.getRoutine)
-  Future<RoutineResponse> getRoutines();
+  Future<GetRoutineResponse> getRoutines();
+
+  @POST(ApiConstants.addRoutine)
+  Future<PostRoutineResponse> addRoutine(@Body() PostRoutineRequestBody postRoutineRequestBody);
 }
