@@ -1,25 +1,25 @@
-class RoutineResponse {
+class GetRoutineResponse {
   final int? count;
   final String? next;
   final String? previous;
-  final List<RoutineData>? result;
+  final List<GetRoutineData>? result;
 
-  RoutineResponse({this.count, this.next, this.previous, this.result});
+  GetRoutineResponse({this.count, this.next, this.previous, this.result});
 
-  factory RoutineResponse.fromJson(Map<String, dynamic> json) {
-    return RoutineResponse(
+  factory GetRoutineResponse.fromJson(Map<String, dynamic> json) {
+    return GetRoutineResponse(
       count: json['count'],
       next: json['next'],
       previous: json['previous'],
       result:
           (json['result'] as List<dynamic>?)
-              ?.map((e) => RoutineData.fromJson(e))
+              ?.map((e) => GetRoutineData.fromJson(e))
               .toList(),
     );
   }
 }
 
-class RoutineData {
+class GetRoutineData {
   final int? id;
   final String? name;
   final String? description;
@@ -30,7 +30,7 @@ class RoutineData {
   final bool? isTemplate;
   final bool? isPublic;
 
-  RoutineData({
+  GetRoutineData({
     this.id,
     this.name,
     this.description,
@@ -42,8 +42,8 @@ class RoutineData {
     this.isPublic,
   });
 
-  factory RoutineData.fromJson(Map<String, dynamic> json) {
-    return RoutineData(
+  factory GetRoutineData.fromJson(Map<String, dynamic> json) {
+    return GetRoutineData(
       id: json['id'],
       name: json['name'],
       description: json['description'],
