@@ -9,5 +9,6 @@ class ApiConstants {
   static const String register = 'register/';
   static const String addRoutine = 'routine/';
   static const String getRoutine = 'routine/?is_public=false';
+  static const String day = 'day/';
 }
 

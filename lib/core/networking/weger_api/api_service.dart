@@ -3,6 +3,9 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:wellness/features/login/data/models/login_response.dart';
 
+import '../../../features/day/data/models/get_day_response.dart';
+import '../../../features/day/data/models/post_day_request_body.dart';
+import '../../../features/day/data/models/post_day_response.dart';
 import '../../../features/login/data/models/login_request_body.dart';
 import '../../../features/register/data/models/register_request_body.dart';
 import '../../../features/register/data/models/register_response.dart';
@@ -27,4 +30,11 @@ abstract class ApiService {
 
   @POST(ApiConstants.addRoutine)
   Future<PostRoutineResponse> addRoutine(@Body() PostRoutineRequestBody postRoutineRequestBody);
+
+  @GET(ApiConstants.day)
+  Future<GetDayResponse> getDays();
+
+  @POST(ApiConstants.day)
+  Future<PostDayResponse> addDay(@Body() PostDayRequestBody postDayRequestBody);
+
 }
