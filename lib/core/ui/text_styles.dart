@@ -3,48 +3,49 @@
 // import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wellness/core/ui/color_palette.dart';
 
 class TextStyles {
-  static const TextStyle heading1 = TextStyle(
-    fontSize: 28,
+  static  TextStyle heading1 = TextStyle(
+    fontSize: 28.sp,
     fontWeight: FontWeight.bold,
     color: Palette.textPrimary,
     height: 1.3,
   );
 
-  static const TextStyle heading2 = TextStyle(
-    fontSize: 24,
+  static TextStyle heading2 = TextStyle(
+    fontSize: 24.sp,
     fontWeight: FontWeight.bold,
     color: Palette.textPrimary,
-    height: 1.3,
+    height: 1.3.h,
   );
 
-  static const TextStyle heading3 = TextStyle(
-    fontSize: 20,
+  static TextStyle heading3 = TextStyle(
+    fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     color: Palette.textPrimary,
-    height: 1.3,
+    height: 1.3.h,
   );
 
-  static const TextStyle subtitle = TextStyle(
-    fontSize: 16,
+  static TextStyle subtitle = TextStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     color: Palette.textSecondary,
-    height: 1.5,
+    height: 1.5.h,
   );
 
-  static const TextStyle body = TextStyle(
-    fontSize: 14,
+  static TextStyle body = TextStyle(
+    fontSize: 14.sp,
     fontWeight: FontWeight.normal,
     color: Palette.textPrimary,
-    height: 1.5,
+    height: 1.5.h,
   );
 
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
+  static TextStyle caption = TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeight.normal,
     color: Palette.textLight,
-    height: 1.5,
+    height: 1.5.h,
   );
 }
