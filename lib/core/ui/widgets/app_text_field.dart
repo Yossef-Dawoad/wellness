@@ -17,6 +17,7 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Function()? onTap;
   final TextEditingController? controller;
+  final bool? readOnly;
   // final TextEditingController? controller;
   const AppTextField({
     super.key,
@@ -30,7 +31,7 @@ class AppTextField extends StatelessWidget {
     this.errorBorder,
     this.focusedErrorBorder,
     this.prefixIcon,
-    this.onTap, this.controller,
+    this.onTap, this.controller, this.readOnly,
   });
 
   @override
@@ -38,6 +39,7 @@ class AppTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       style: TextStyles.body,
+      readOnly: readOnly ?? false,
       onTap: onTap,
       decoration: InputDecoration(
         contentPadding:

@@ -34,6 +34,6 @@ class _DateTextFieldState extends State<DateTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return AppTextField(hintText: 'Select Date', prefixIcon: Icon( Icons.calendar_month), controller: _dateController, onTap: ()=> _selectDate(context),);
+    return AppTextField(hintText: 'Select Date', readOnly: true, prefixIcon: Icon( Icons.calendar_month), controller: _dateController, onTap: ()=> _selectDate(context),);
   }
 }

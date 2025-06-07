@@ -8,6 +8,7 @@ import 'package:wellness/features/user_questionnaire/presentation/weight_scale_s
 
 import '../../features/onboarding/presentaions/onboarding_view.dart';
 import '../../features/register/logic/cubit/register_cubit.dart';
+import '../../features/routine/ui/screens/create_routine_screen.dart';
 import '../../features/user_questionnaire/presentation/exercise_type_selector_screen.dart';
 import '../service_locator/sl.dart';
 import 'route_model.dart';
@@ -37,6 +38,11 @@ class AppRouter {
       ),
       RouteNames.exerciseTypeSelectorScreen => MaterialPageRoute(
         builder: (_) => const ExerciseTypeSelectorPage(),
+      ),
+
+      //new routine
+      RouteNames.addRoutine => MaterialPageRoute(
+        builder: (_) => const CreateRoutineScreen(),
       ),
 
       _ => MaterialPageRoute(builder: (_) => const Scaffold()),

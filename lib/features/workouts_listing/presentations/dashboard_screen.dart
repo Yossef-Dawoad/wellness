@@ -6,9 +6,9 @@ import '../../nutrations/cubits/calories_cubit/calories_cubit.dart';
 import '../../nutrations/cubits/calories_cubit/calories_state.dart';
 import '../../nutrations/views/nutration_screen.dart';
 import '../../profile/presentation/profile_screen.dart';
+import '../../routine/ui/screens/routine_screen.dart';
 import 'components/exercise_carouselview.dart';
 import 'components/floating_nav_bar.dart';
-import 'workouts_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({super.key});
@@ -22,7 +22,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
 
   final List<Widget> _screens = [
     const DashboardHomeScreen(),
-    const WorkoutsScreen(),
+    const RoutineScreen(),
     const NutrationScreen(),
     const ProfileScreen(),
   ];

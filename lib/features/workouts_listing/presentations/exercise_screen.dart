@@ -92,7 +92,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseName = widget.exercises[widget.currentIndex].name;
+    // final exerciseName = widget.exercises[widget.currentIndex].name;
 
     return Scaffold(
       appBar: AppBar(

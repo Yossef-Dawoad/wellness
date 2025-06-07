@@ -6,4 +6,5 @@ class RouteNames {
   static const String heightScaleScreen = '/heightScale';
   static const String exerciseTypeSelectorScreen = '/exercise-type-selector';
   static const String home = '/dashboard';
+  static const String addRoutine = '/addRoutine';
 }
