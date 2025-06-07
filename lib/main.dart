@@ -3,19 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logging/logging.dart';
 import 'package:wellness/fitness_app.dart';
+import 'core/networking/weger_api/token_manager.dart';
+import 'core/routes/route_model.dart';
 import 'core/service_locator/sl.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Important for async setup
   await setupLocator(); // Configure GetIt
   await ScreenUtil.ensureScreenSize();
+
+  final token = await TokenManager.getAccessToken();
+  print('access token: $token');
+
   _setupLogging();
-  runApp(FitnessApp());
+
+  runApp(
+    FitnessApp(
+      initialRoute:
+          token != null && token.isNotEmpty
+              ? RouteNames.home
+              : RouteNames.loginScreen,
+    ),
+  );
 }
 
 void _setupLogging() {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
-    if (kDebugMode) debugPrint('[${record.level.name}]: ${record.time}: ${record.message}');
+    if (kDebugMode)
+      debugPrint('[${record.level.name}]: ${record.time}: ${record.message}');
   });
 }

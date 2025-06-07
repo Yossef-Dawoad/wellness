@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/networking/weger_api/api_service.dart';
+import '../../../../core/networking/weger_api/token_manager.dart';
 import '../../../../core/utils/types/networking_error_types.dart';
 import '../../../../core/utils/types/result_type.dart';
 import '../models/login_request_body.dart';
@@ -16,6 +17,10 @@ class LoginRepo {
   ) async {
     try {
       final response = await _apiService.login(loginRequestBody);
+
+      await TokenManager.saveTokens(response.access, response.refresh);
+      print('access token: ${response.access}');
+
       return Right(response);
     } catch (error) {
       final handledError = NetworkErrorHandler.handle(error);

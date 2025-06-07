@@ -5,6 +5,7 @@ import 'package:wellness/features/login/logic/cubit/login_cubit.dart';
 import 'package:wellness/features/login/ui/screens/login_screen.dart';
 import 'package:wellness/features/register/ui/screens/register_screen.dart';
 import 'package:wellness/features/user_questionnaire/presentation/weight_scale_selector_screen.dart';
+import 'package:wellness/features/workouts_listing/presentations/dashboard_screen.dart';
 
 import '../../features/onboarding/presentaions/onboarding_view.dart';
 import '../../features/register/logic/cubit/register_cubit.dart';
@@ -19,6 +20,11 @@ class AppRouter {
       RouteNames.onBoardingScreens => MaterialPageRoute(
         builder: (_) => const OnboardingView(),
       ),
+
+      RouteNames.home => MaterialPageRoute(
+        builder: (_) => const MainHomeScreen(),
+      ),
+
       RouteNames.loginScreen => MaterialPageRoute(
         builder:
             (_) => BlocProvider(
